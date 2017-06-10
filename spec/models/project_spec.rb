@@ -73,4 +73,40 @@ RSpec.describe Project do
     end
 
   end
+
+  describe "stubs and mocks" do
+
+    it "stubs an object" do
+      project = Project.new(name: "Project Greenlight")
+      allow(project).to receive(:name).and_return("Fred")
+      expect(project.name).to eq("Fred")
+    end
+
+    it "stubs the class" do
+      allow(Project).to receive(:find).and_return(
+          Project.new(name: "Project Greenlight"))
+      project = Project.find(1)
+      expect(project.name).to eq("Project Greenlight")
+    end
+
+    it "uses double to create stubs" do
+      project = double(name: "p1", total_size: 10)
+      expect(project.total_size).to eq(10)
+    end
+
+    it "uses instance double to create stubs" do
+      project = instance_double(Project)
+      allow(project).to receive(:total_size).and_return(10)
+      expect(project.total_size).to eq(10)
+    end
+
+    #mocks
+    it "expects to be called" do
+      project = Project.new(name: "p1")
+      expect(project).to receive(:name).and_return("Demanding")
+      called = project.name
+    end
+
+
+  end
 end
