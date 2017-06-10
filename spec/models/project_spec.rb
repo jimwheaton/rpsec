@@ -43,6 +43,10 @@ RSpec.describe Project do
 
     it "can calculate total size" do
       expect(project.total_size).to eq(10)
+
+      #using custom matcher in support/size_matcher.rb
+      expect(project).to be_of_size(10)
+      expect(project).to be_of_size(5).for_incomplete_tasks_only
     end
 
     it "can calculate remaining size" do
