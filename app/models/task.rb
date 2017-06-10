@@ -17,4 +17,12 @@ class Task < ActiveRecord::Base
   def mark_completed(date = nil)
     self.completed_at = (date || Time.current)
   end
+
+  def epic?
+    size >= 5
+  end
+
+  def small?
+    size <= 1
+  end
 end
