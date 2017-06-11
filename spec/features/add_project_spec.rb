@@ -8,8 +8,9 @@ describe "adding projects" do
     fill_in "Tasks", with: "Task 1:3\nTask 2:5"
     click_on("Create Project")
     visit projects_path
+    #save_and_open_page("~/dev/addproject.html")
     @project = Project.find_by_name("Project Runway")
-    expect(page).to have_selector('#project_1 .name', text: "Project Runway")
+    expect(page).to have_selector("#project_#{@project.id} .name", text: "Project Runway")
     expect(page).to have_selector(
                         "#project_#{@project.id} td", text: "8")
   end

@@ -1,6 +1,6 @@
 class Project < ActiveRecord::Base
 
-  has_many :tasks
+  has_many :tasks, -> { order "project_order ASC" }
 
   validates :name, presence: true
 
@@ -42,5 +42,10 @@ class Project < ActiveRecord::Base
 
   def projected_days_valid?
     return !(projected_days_remaining.nan? || projected_days_remaining == Float::INFINITY)
+  end
+
+  def next_task_order
+    return 1 if tasks.empty?
+    (tasks.last.project_order || tasks.size) + 1
   end
 end
