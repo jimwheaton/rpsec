@@ -29,10 +29,12 @@ gem 'spring',        group: :development
 
 group :development, :test do
   gem 'rspec-rails', '~>3.1'
+  gem 'mocha', require: false
 end
 
 group :test do
   gem 'capybara'
+  gem 'minitest-rails-capybara'
 end
 
 # Use ActiveModel has_secure_password
