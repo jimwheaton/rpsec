@@ -37,7 +37,10 @@ class Project < ActiveRecord::Base
   end
 
   def on_schedule?
-    return false if projected_days_remaining.nan?
-    (Date.today + projected_days_remaining) <= due_date
+    projected_days_valid? && (Date.today + projected_days_remaining) <= due_date
+  end
+
+  def projected_days_valid?
+    return !(projected_days_remaining.nan? || projected_days_remaining == Float::INFINITY)
   end
 end
